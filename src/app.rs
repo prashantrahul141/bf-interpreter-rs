@@ -1,6 +1,6 @@
 use std::{self, env, fs, process::exit};
 
-use crate::lexer::Lexer;
+use crate::{lexer::Lexer, parser::Parser};
 
 /// Top level App struct to control everything in one place.
 pub struct App;
@@ -31,7 +31,10 @@ impl App {
 
         let file_content = App::get_file_contents(&env::args().collect::<Vec<String>>()[1]);
 
-        let lexer = Lexer::new(&file_content);
+        let mut lexer = Lexer::new(&file_content);
+
+        let parser = Parser::new(&mut lexer.tokens);
+        parser.parse();
 
         for token in lexer.tokens {
             dbg!(token);

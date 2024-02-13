@@ -1,5 +1,6 @@
 mod app;
 mod lexer;
+mod parser;
 mod token;
 
 use app::App;
