@@ -24,7 +24,7 @@ impl Lexer {
     fn scan_tokens(input: &String) -> Vec<Token> {
         let mut line = 0;
 
-        input
+        let mut tokens = input
             // taking characters of strings.
             .chars()
             // mapping through it.
@@ -86,6 +86,16 @@ impl Lexer {
                 // consider everything else as comments.
                 _ => None,
             })
-            .collect()
+            .collect::<Vec<Token>>();
+
+        // push a EOF token at the end.
+        tokens.push(Token {
+            line: 0,
+            token_type: TokenType::Eof,
+        });
+
+        tokens.reverse();
+
+        tokens
     }
 }
