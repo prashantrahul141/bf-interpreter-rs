@@ -1,6 +1,10 @@
+mod app;
 mod lexer;
 mod token;
-use lexer::Lexer;
+
+use app::App;
+
 fn main() {
-    println!("Hello, world!");
+    let app = App::new();
+    app.run();
 }
