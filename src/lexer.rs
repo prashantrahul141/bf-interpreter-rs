@@ -11,7 +11,7 @@ impl Lexer {
     /// which internally calls the scanner.
     /// so basically we scan the tokens at the
     /// time of creating a new lexer instance.
-    pub fn new(input: &String) -> Self {
+    pub fn new(input: &str) -> Self {
         let tokens = Lexer::scan_tokens(input);
         Self { tokens }
     }
@@ -21,7 +21,7 @@ impl Lexer {
     /// * input - Immutable reference to the string to scan.
     /// # Returns
     /// * tokens - Vector of Tokens scanned.
-    fn scan_tokens(input: &String) -> Vec<Token> {
+    fn scan_tokens(input: &str) -> Vec<Token> {
         let mut line = 0;
 
         let mut tokens = input
@@ -108,8 +108,7 @@ impl Lexer {
 
     /// Returns reference to the next Token without removing it.
     pub fn peek(&self) -> &Token {
-        &self
-            .tokens
+        self.tokens
             .last()
             .expect("[Lexer] Failed to peek next token.")
     }
