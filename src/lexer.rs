@@ -98,4 +98,19 @@ impl Lexer {
 
         tokens
     }
+
+    /// Removes and Returns the next Token.
+    pub fn pop(&mut self) -> Token {
+        self.tokens
+            .pop()
+            .expect("[Lexer] Failed to get next token.")
+    }
+
+    /// Returns reference to the next Token without removing it.
+    pub fn peek(&self) -> &Token {
+        &self
+            .tokens
+            .last()
+            .expect("[Lexer] Failed to peek next token.")
+    }
 }
