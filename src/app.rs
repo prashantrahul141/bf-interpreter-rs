@@ -25,7 +25,7 @@ impl App {
     // start the interpreter.
     pub fn run(&self) {
         if env::args().len() != 2 {
-            println!("BFIR - BrainF*ck Interpreter in Rust.\n\nUsage:\n    bfi [FILENAME]");
+            println!("BFIR - BrainF*ck Interpreter in Rust.\n\nUsage:\n    bfirs [FILENAME]");
             exit(0);
         };
 
@@ -33,11 +33,16 @@ impl App {
 
         let mut lexer = Lexer::new(&file_content);
 
-        let parser = Parser::new(&mut lexer.tokens);
+        for token in &lexer.tokens {
+            dbg!(token);
+        }
+
+        let mut parser = Parser::new(&mut lexer);
         parser.parse();
 
-        for token in lexer.tokens {
-            dbg!(token);
+
+        for instruction in &parser.instructions {
+            dbg!(instruction);
         }
     }
 }
