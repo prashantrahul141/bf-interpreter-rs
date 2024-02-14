@@ -1,6 +1,6 @@
 use std::{self, env, fs, process::exit};
 
-use crate::{lexer::Lexer, parser::Parser};
+use crate::{lexer::Lexer, parser::Parser, vm::Vm};
 
 /// Top level App struct to control everything in one place.
 pub struct App;
@@ -39,6 +39,9 @@ impl App {
         for instruction in &parser.instructions {
             dbg!(instruction);
         }
+
+        let mut vm = Vm::new();
+        vm.run();
     }
 
     // reads file content, returns string of file content otherwise panics.
