@@ -11,6 +11,36 @@ impl App {
         Self
     }
 
+    // start the interpreter.
+    pub fn run(&self) {
+        // if != 2 number of arguments are passed.
+        if env::args().len() != 2 {
+            println!("BFIR - BrainF*ck Interpreter in Rust.\n\nUsage:\n    bfirs [FILENAME]");
+            exit(0);
+        };
+
+        // read file content.
+        let file_content = App::get_file_contents(&env::args().collect::<Vec<String>>()[1]);
+
+        // create a new lexer, and tokenize file string.
+        let mut lexer = Lexer::new(&file_content);
+
+        // debug log
+        for token in &lexer.tokens {
+            dbg!(token);
+        }
+
+        // create a new parser
+        let mut parser = Parser::new(&mut lexer);
+        // parse the tokens to stmts
+        parser.parse();
+
+        // debug log
+        for instruction in &parser.instructions {
+            dbg!(instruction);
+        }
+    }
+
     // reads file content, returns string of file content otherwise panics.
     fn get_file_contents(filepath: &str) -> String {
         let contents = fs::read_to_string(filepath);
@@ -20,29 +50,5 @@ impl App {
         }
 
         panic!("Failed to open file.")
-    }
-
-    // start the interpreter.
-    pub fn run(&self) {
-        if env::args().len() != 2 {
-            println!("BFIR - BrainF*ck Interpreter in Rust.\n\nUsage:\n    bfirs [FILENAME]");
-            exit(0);
-        };
-
-        let file_content = App::get_file_contents(&env::args().collect::<Vec<String>>()[1]);
-
-        let mut lexer = Lexer::new(&file_content);
-
-        for token in &lexer.tokens {
-            dbg!(token);
-        }
-
-        let mut parser = Parser::new(&mut lexer);
-        parser.parse();
-
-
-        for instruction in &parser.instructions {
-            dbg!(instruction);
-        }
     }
 }
