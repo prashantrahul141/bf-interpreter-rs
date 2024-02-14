@@ -19,4 +19,19 @@ impl<'a> Parser<'a> {
     }
 
     pub fn parse(&self) {}
+
+    fn is_at_end(&self) -> bool {
+        self.lexer.tokens.len() == 0
+    }
+
+    fn match_token(&self, tt: TokenType) -> bool {
+        if self.is_at_end() {
+            return false;
+        }
+        self.lexer.peek().token_type == tt
+    }
+
+    fn error(msg: &str, token: &Token) {
+        println!("line : {} : {}", token.line, msg);
+    }
 }
