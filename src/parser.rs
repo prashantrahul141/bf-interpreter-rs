@@ -18,24 +18,33 @@ impl<'a> Parser<'a> {
         }
     }
 
+    /// Public parse function which instiates the parsing process.
     pub fn parse(&mut self) {
-        while !matches!(self.lexer.peek().token_type, TokenType::Eof) {
+        while !self.match_token(TokenType::Eof) {
             if let Some(instruction) = self.parse_instruction() {
                 self.instructions.push(instruction);
             }
         }
     }
 
+    /// Parses indiviual instruction.
     fn parse_instruction(&mut self) -> Option<Stmt> {
         let current = self.lexer.pop();
 
         match current.token_type {
+            // >
             TokenType::RightAngle => Some(Stmt::NodeStmt(OpCode::MovePtrForward)),
+            // <
             TokenType::LeftAngle => Some(Stmt::NodeStmt(OpCode::MovePtrBackward)),
+            // +
             TokenType::Plus => Some(Stmt::NodeStmt(OpCode::Crement(1))),
+            // -
             TokenType::Minus => Some(Stmt::NodeStmt(OpCode::Crement(-1))),
+            // ,
             TokenType::Comma => Some(Stmt::NodeStmt(OpCode::ReadFromStdin)),
+            // .
             TokenType::Dot => Some(Stmt::NodeStmt(OpCode::WriteToStdout)),
+            // for '[' we call the parse_instruction function recurisvely.
             TokenType::LeftSquare => {
                 let mut inner_instructions: Vec<Stmt> = vec![];
 
@@ -50,18 +59,22 @@ impl<'a> Parser<'a> {
 
                 Some(Stmt::WhileStmt(inner_instructions))
             }
+            // if we encounted a ']' without a starting ']' its a parser error.
             TokenType::RightSquare => {
                 Parser::error("Unexpected ']'", &current);
                 None
             }
+            // shoudnt be reachable.
             TokenType::Eof => None,
         }
     }
 
+    // Tells if there are no more tokens to parse.
     fn is_at_end(&self) -> bool {
-        self.lexer.tokens.len() == 0
+        self.lexer.tokens.len() <= 0
     }
 
+    // matches the current token with the given type.
     fn match_token(&self, tt: TokenType) -> bool {
         if self.is_at_end() {
             return false;
@@ -69,6 +82,7 @@ impl<'a> Parser<'a> {
         self.lexer.peek().token_type == tt
     }
 
+    // error reporting for our parser.
     fn error(msg: &str, token: &Token) {
         println!("line : {} : {}", token.line, msg);
     }
