@@ -1,5 +1,5 @@
 // All the operators which exists in brainf*ck
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum TokenType {
     RightAngle,  // >
     LeftAngle,   // <
@@ -18,3 +18,4 @@ pub struct Token {
     pub line: usize,
     pub token_type: TokenType,
 }
+
