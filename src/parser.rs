@@ -71,7 +71,7 @@ impl<'a> Parser<'a> {
 
     // Tells if there are no more tokens to parse.
     fn is_at_end(&self) -> bool {
-        self.lexer.tokens.len() <= 0
+        self.lexer.tokens.is_empty()
     }
 
     // matches the current token with the given type.
