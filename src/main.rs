@@ -1,7 +1,7 @@
 mod app;
+mod enums;
 mod lexer;
 mod parser;
-mod token;
 
 use app::App;
 

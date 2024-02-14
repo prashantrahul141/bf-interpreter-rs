@@ -1,4 +1,4 @@
-use crate::token::{Token, TokenType};
+use crate::enums::{Token, TokenType};
 
 /// Lexer for the interpreter.
 pub struct Lexer {

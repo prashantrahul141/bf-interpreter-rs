@@ -1,4 +1,7 @@
-use crate::token::Token;
+use crate::{
+    enums::{OpCode, Stmt, Token, TokenType},
+    lexer::Lexer,
+};
 
 /// Parser - Parses stream of tokens into vector of instructions.
 pub struct Parser<'a> {
