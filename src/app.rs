@@ -30,7 +30,9 @@ impl App {
         // parse the tokens to stmts
         parser.parse();
 
+        // creates a new vm
         let mut vm = Vm::new(&parser.statements);
+        // run statements.
         vm.run();
     }
 

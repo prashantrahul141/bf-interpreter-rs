@@ -94,6 +94,7 @@ impl Lexer {
             token_type: TokenType::Eof,
         });
 
+        // reverse tokens since we are going to pop it.
         tokens.reverse();
 
         tokens
