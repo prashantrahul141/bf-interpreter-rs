@@ -15,7 +15,7 @@ impl App {
     pub fn run(&self) {
         // if != 2 number of arguments are passed.
         if env::args().len() != 2 {
-            println!("BFIR - BrainF*ck Interpreter in Rust.\n\nUsage:\n    bfirs [FILENAME]");
+            println!("bfir - Brainf*ck Interpreter in Rust.\n\nUsage:\n    bfirs [filename]");
             exit(0);
         };
 
