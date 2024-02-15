@@ -4,7 +4,7 @@ use crate::enums::{OpCode, Stmt};
 pub struct Vm<'a> {
     instructions: &'a Vec<Stmt>,
     pointer: usize,
-    data: [u8; 30],
+    data: [u8; 30000],
 }
 
 impl<'a> Vm<'a> {
@@ -12,7 +12,7 @@ impl<'a> Vm<'a> {
     pub fn new(instructions: &'a Vec<Stmt>) -> Self {
         Self {
             pointer: 0,
-            data: [0; 30],
+            data: [0; 30000],
             instructions,
         }
     }
