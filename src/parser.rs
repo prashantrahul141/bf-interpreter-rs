@@ -6,7 +6,7 @@ use crate::{
 /// Parser - Parses stream of tokens into vector of instructions.
 pub struct Parser<'a> {
     lexer: &'a mut Lexer,
-    pub instructions: Vec<Stmt>,
+    pub statements: Vec<Stmt>,
 }
 
 impl<'a> Parser<'a> {
@@ -14,7 +14,7 @@ impl<'a> Parser<'a> {
     pub fn new(lexer: &'a mut Lexer) -> Self {
         Self {
             lexer,
-            instructions: vec![],
+            statements: vec![],
         }
     }
 
@@ -22,7 +22,7 @@ impl<'a> Parser<'a> {
     pub fn parse(&mut self) {
         while !self.match_token(TokenType::Eof) {
             if let Some(instruction) = self.parse_instruction() {
-                self.instructions.push(instruction);
+                self.statements.push(instruction);
             }
         }
     }

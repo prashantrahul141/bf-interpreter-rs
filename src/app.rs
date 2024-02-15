@@ -36,11 +36,11 @@ impl App {
         parser.parse();
 
         // debug log
-        for instruction in &parser.instructions {
+        for instruction in &parser.statements {
             dbg!(instruction);
         }
 
-        let mut vm = Vm::new();
+        let mut vm = Vm::new(&parser.statements);
         vm.run();
     }
 
