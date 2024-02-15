@@ -7,10 +7,14 @@ pub struct Vm<'a> {
     data: [u8; 30],
 }
 
-impl Vm {
+impl<'a> Vm<'a> {
     // constructor
-    pub fn new() -> Self {
-        Self
+    pub fn new(instructions: &'a Vec<Stmt>) -> Self {
+        Self {
+            pointer: 0,
+            data: [0; 30],
+            instructions,
+        }
     }
 
     // Public run method to start executon
