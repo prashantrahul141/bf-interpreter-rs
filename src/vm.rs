@@ -54,7 +54,7 @@ impl<'a> Vm<'a> {
             OpCode::ReadFromStdin => {
                 let mut input = String::new();
                 std::io::stdin().read_line(&mut input).unwrap_or(0);
-                let first_char = input.bytes().nth(0).unwrap_or(0);
+                let first_char = input.as_bytes().first().copied().unwrap_or(0);
                 self.data[self.pointer] = first_char;
             }
 
