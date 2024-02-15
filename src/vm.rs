@@ -48,6 +48,5 @@ impl<'a> Vm<'a> {
                 self.data[self.pointer] = (self.data[self.pointer] as i8 + value) as u8;
             }
         }
-
     }
 }
