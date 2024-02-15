@@ -18,5 +18,13 @@ impl<'a> Vm<'a> {
     }
 
     // Public run method to start executon
-    pub fn run(&mut self) {}
+    pub fn run(&mut self) {
+        for instruction in self.instructions {
+            match instruction {
+                Stmt::NodeStmt(node) => self.run_node(node),
+                Stmt::WhileStmt(_) => todo!(),
+            }
+        }
+    }
+
 }
