@@ -25,20 +25,10 @@ impl App {
         // create a new lexer, and tokenize file string.
         let mut lexer = Lexer::new(&file_content);
 
-        // debug log
-        for token in &lexer.tokens {
-            dbg!(token);
-        }
-
         // create a new parser
         let mut parser = Parser::new(&mut lexer);
         // parse the tokens to stmts
         parser.parse();
-
-        // debug log
-        for instruction in &parser.statements {
-            dbg!(instruction);
-        }
 
         let mut vm = Vm::new(&parser.statements);
         vm.run();
