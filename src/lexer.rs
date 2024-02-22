@@ -22,7 +22,7 @@ impl Lexer {
     /// # Returns
     /// * tokens - Vector of Tokens scanned.
     fn scan_tokens(input: &str) -> Vec<Token> {
-        let mut line = 0;
+        let mut line = 1;
 
         let mut tokens = input
             // taking characters of strings.
@@ -90,7 +90,7 @@ impl Lexer {
 
         // push a EOF token at the end.
         tokens.push(Token {
-            line: 0,
+            line,
             token_type: TokenType::Eof,
         });
 
