@@ -2,33 +2,33 @@ use crate::enums::{OpCode, Stmt};
 
 // Our virtual machine which will execute instructions.
 pub struct Vm<'a> {
-    instructions: &'a Vec<Stmt>,
+    statements: &'a Vec<Stmt>,
     pointer: usize,
     data: [u8; 30000],
 }
 
 impl<'a> Vm<'a> {
     // constructor
-    pub fn new(instructions: &'a Vec<Stmt>) -> Self {
+    pub fn new(statements: &'a Vec<Stmt>) -> Self {
         Self {
             pointer: 0,
             data: [0; 30000],
-            instructions,
+            statements,
         }
     }
 
     // Public run method to start executon
     pub fn run(&mut self) {
-        for instruction in self.instructions {
-            self.run_stmt(instruction);
+        for statement in self.statements {
+            self.run_stmt(statement);
         }
     }
 
     //  runs statements.
     fn run_stmt(&mut self, stmt: &Stmt) {
         match stmt {
-            Stmt::NodeStmt(node) => self.run_opcode(node),
-            Stmt::WhileStmt(node) => self.while_stmt(node),
+            Stmt::NodeStmt(op_code) => self.run_opcode(op_code),
+            Stmt::WhileStmt(stmts) => self.while_stmt(stmts),
         }
     }
 
