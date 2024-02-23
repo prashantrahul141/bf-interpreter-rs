@@ -21,14 +21,14 @@ impl<'a> Parser<'a> {
     /// Public parse function which instiates the parsing process.
     pub fn parse(&mut self) {
         while !self.match_token(TokenType::Eof) {
-            if let Some(instruction) = self.parse_instruction() {
-                self.statements.push(instruction);
+            if let Some(stmt) = self.parse_stmt() {
+                self.statements.push(stmt);
             }
         }
     }
 
     /// Parses indiviual instruction.
-    fn parse_instruction(&mut self) -> Option<Stmt> {
+    fn parse_stmt(&mut self) -> Option<Stmt> {
         let current = self.lexer.pop();
 
         match current.token_type {
@@ -49,7 +49,7 @@ impl<'a> Parser<'a> {
                 let mut inner_instructions: Vec<Stmt> = vec![];
 
                 while !self.match_token(TokenType::RightSquare) {
-                    if let Some(instruction) = self.parse_instruction() {
+                    if let Some(instruction) = self.parse_stmt() {
                         inner_instructions.push(instruction);
                     }
                 }
