@@ -17,7 +17,7 @@ impl<'a> Vm<'a> {
         }
     }
 
-    // Public run method to start executon
+    // Public run method to start execution
     pub fn run(&mut self) {
         for statement in self.statements {
             self.run_stmt(statement);
